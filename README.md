@@ -5,7 +5,7 @@ HTML, CSS, dan JS murni — tanpa build, langsung jalan di GitHub Pages.
 
 ## Fitur
 - **Fun fact** bergaya majalah, filter per kategori, sensor spoiler (klik untuk buka), artikel di dialog dengan gambar sampul.
-- **28 karakter** dengan foto potret, filter Part 1 / Part 2, dan pencarian. Klik kartu untuk membuka **profil lengkap** (umur, lahir, tinggi, asal, debut, pengisi suara, kontrak, saudara, status) dan fun fact per karakter. Info spoiler tampil sebagai blok hitam yang bisa diklik.
+- **Ensiklopedia 171 karakter** (`karakter.html`) — setara Chainsaw Man Fandom Wiki: filter Part 1 / Part 2 / Spin-off, filter jenis (Manusia, Iblis, Fiend, Hibrida), pencarian, dan link langsung `#char-<id>`. Beranda menampilkan 28 karakter unggulan. Klik kartu untuk membuka **profil lengkap** (umur, lahir, tinggi, asal, debut, pengisi suara, kontrak, saudara, status) dan fun fact per karakter. Info spoiler tampil sebagai blok hitam yang bisa diklik.
 - **Bedah 14 arc** (Part 1 & 2): kejadian dan makna tiap arc, tertutup sampai dibuka (spoiler).
 - **Pesan & filosofi**: pernyataan Fujimoto (bersumber) dipisah dari tafsiran tema.
 - **Linimasa** rilis manga, anime, dan film — sampai tamatnya manga (2026).
@@ -18,11 +18,12 @@ HTML, CSS, dan JS murni — tanpa build, langsung jalan di GitHub Pages.
 | `js/posts.js` | Fun fact (`POSTS`) dan kategori (`CATEGORIES`) |
 | `js/content.js` | Karakter (`CHARACTERS`), linimasa (`TIMELINE`), galeri (`GALLERY`) |
 | `js/arcs.js` | Bedah arc (`ARCS`) dan filosofi (`PHILOSOPHY`) |
+| `js/characters-all.js` | 143 karakter tambahan + kolom infobox wiki (`ALL_CHARACTERS`, `ALL_DETAILS`, `EXTRA_DETAILS`) — dimuat hanya di `karakter.html` |
 | `js/characters-detail.js` | Profil & fun fact per karakter (`CHAR_DETAILS`) — tandai `spoiler: true` untuk menyensor |
 | `js/i18n.js` | Teks UI dalam 2 bahasa (`STR`) |
 | `js/app.js` | Logika render, filter, spoiler, ganti bahasa |
 | `css/style.css` | Gaya, token sesuai `DESIGN.md` |
-| `assets/img/` | Gambar — lihat `assets/img/README.md` untuk nama file |
+| `assets/img/` | Gambar — lihat `assets/img/README.md`; potret ensiklopedia ada di `assets/img/wiki/` |
 
 ## Menambah fun fact
 Tambahkan objek baru ke array `POSTS` di `js/posts.js`:
@@ -46,4 +47,4 @@ python -m http.server 5510
 Lalu buka http://localhost:5510.
 
 ## Disclaimer
-Situs fan tidak resmi. Chainsaw Man © Tatsuki Fujimoto / Shueisha. Semua gambar milik pemegang hak ciptanya masing-masing.
+Situs fan tidak resmi. Chainsaw Man © Tatsuki Fujimoto / Shueisha. Semua gambar milik pemegang hak ciptanya masing-masing. Data infobox karakter diambil dari [Chainsaw Man Fandom Wiki](https://chainsaw-man.fandom.com/) (CC BY-SA); bio dan fun fact ditulis ulang.

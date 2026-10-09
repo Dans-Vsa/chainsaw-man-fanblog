@@ -2,6 +2,9 @@
 // Gambar: taruh file di folder assets/img/... sesuai path `img`. Kalau file belum ada,
 // situs otomatis menampilkan placeholder — jadi aman menambah data dulu, gambar belakangan.
 
+// Jumlah semua karakter di ensiklopedia (28 unggulan + 143 dari characters-all.js)
+const TOTAL_CHARACTERS = 171;
+
 const CHARACTERS = [
   {
     id: "denji", part: 1, img: "assets/img/characters/denji.webp",
@@ -236,10 +239,10 @@ const CHARACTERS = [
   {
     id: "fami", part: 2, img: "assets/img/characters/fami.webp", spoiler: true,
     name: "Fami",
-    role: { id: "Iblis Kelaparan", en: "Famine Devil" },
+    role: { id: "Pemimpin Gereja Chainsaw Man", en: "Leader of the Chainsaw Man Church" },
     bio: {
-      id: "Siswi misterius yang selalu kelaparan — sebenarnya Iblis Kelaparan dan pemimpin asli Gereja Chainsaw Man.",
-      en: "A mysterious, always-hungry student — secretly the Famine Devil and true leader of the Chainsaw Man Church.",
+      id: "Siswi misterius yang selalu kelaparan dan mengaku sebagai Iblis Kelaparan — dalang di balik Gereja Chainsaw Man.",
+      en: "A mysterious, always-hungry student claiming to be the Famine Devil — the mastermind behind the Chainsaw Man Church.",
     },
     ability: { id: "Memanfaatkan rasa lapar dan memanipulasi orang dari balik layar.", en: "Exploits hunger and manipulates people from behind the scenes." },
   },

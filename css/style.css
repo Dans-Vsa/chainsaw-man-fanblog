@@ -409,6 +409,23 @@ button, input, select { font: inherit; color: inherit; }
 .section--ink .redact:hover { background: var(--accent); }
 .section--ink .redact.is-open { background: rgba(200, 16, 46, .25); }
 
+/* ── Ensiklopedia karakter ────────────────────── */
+.ency { min-height: 100vh; }
+.ency__back { margin: 0 0 var(--s-2xl); font: 700 13px/1 var(--f-sans); letter-spacing: .06em; text-transform: uppercase; }
+.ency__back a { color: var(--on-ink); }
+.ency__count { margin: 0 0 0 auto; font: 500 13px/1 var(--f-sans); color: var(--on-ink-muted); }
+.ency__count b { color: var(--on-ink); }
+.chars--compact { grid-template-columns: repeat(6, 1fr); gap: var(--s-xl) var(--s-lg); }
+.chars--compact .char__name { font-size: 20px; }
+.chars--compact .char__role { font-size: 10px; line-height: 14px; }
+.chars--compact .char__open { font-size: 11px; }
+.chars__more { margin: var(--s-3xl) 0 0; text-align: center; }
+.profile__bio { margin: 0 0 var(--s-lg); font-size: 16px; line-height: 1.55; }
+.profile__none { color: var(--body); font-style: italic; }
+.profile__none::before { content: none !important; }
+.profile__wiki { margin: var(--s-sm) 0 0; font: 400 13px/1.5 var(--f-sans); color: var(--body); }
+.profile__wiki a { font-weight: 700; color: var(--ink); }
+
 /* ── Timeline ─────────────────────────────────── */
 .timeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); row-gap: var(--s-2xl); border-top: 2px solid var(--ink); }
 .tl:nth-child(4n+1) { border-left: 0; padding-left: 0; }
@@ -480,6 +497,7 @@ button, input, select { font: inherit; color: inherit; }
 
 /* ── Responsive ───────────────────────────────── */
 @media (max-width: 1023px) {
+  .chars--compact { grid-template-columns: repeat(4, 1fr); }
   .quotes { grid-template-columns: 1fr 1fr; }
   .arc__body { grid-template-columns: 1fr; gap: var(--s-lg); }
   .intro__grid { grid-template-columns: 1fr; gap: var(--s-2xl); }
@@ -497,6 +515,8 @@ button, input, select { font: inherit; color: inherit; }
   .gallery { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 767px) {
+  .chars--compact { grid-template-columns: repeat(2, 1fr); }
+  .ency__count { margin-left: 0; }
   .arc summary { grid-template-columns: 44px 1fr; }
   .arc__n { font-size: 30px; }
   .arc__toggle { grid-column: 2; justify-self: start; }

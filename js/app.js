@@ -9,6 +9,7 @@
     lang: localStorage.getItem("lang") || "id",
     factCat: "all",
     charPart: "all",
+    charKind: "all",
     charQuery: "",
     showSpoilers: false,
     revealed: new Set(),
@@ -21,11 +22,33 @@
   const fmtMonth = (ym) => new Date(`${ym}-01`).toLocaleDateString(locale(), { month: "long", year: "numeric" });
   const isHidden = (item) => item.spoiler && !state.showSpoilers && !state.revealed.has(item.id);
 
+  /* ── Data karakter ────────────────────────────
+     Halaman utama memakai 28 karakter unggulan (CHARACTERS).
+     Halaman ensiklopedia juga memuat characters-all.js: 143 karakter lain + kolom tambahan dari wiki. */
+  const ENCYCLOPEDIA = typeof ALL_CHARACTERS !== "undefined";
+  const ROSTER = ENCYCLOPEDIA ? [...CHARACTERS, ...ALL_CHARACTERS] : CHARACTERS;
+  if (ENCYCLOPEDIA) {
+    Object.assign(CHAR_DETAILS, ALL_DETAILS);
+    for (const [id, extra] of Object.entries(EXTRA_DETAILS)) {
+      const c = CHARACTERS.find((x) => x.id === id);
+      if (c) Object.assign(c, { kind: extra.kind, wiki: extra.wiki });
+      // Data tulisan sendiri diutamakan; kolom wiki hanya mengisi yang belum ada
+      CHAR_DETAILS[id].profile = { ...extra.profile, ...CHAR_DETAILS[id].profile };
+    }
+  }
+  const PROFILE_ORDER = ["species", "gender", "age", "born", "height", "origin", "occupation", "affiliation",
+    "debut", "vaJp", "vaEn", "contracts", "family", "aliases", "status"];
+  const partLabel = (p) => (p === "bs" ? "Spin-off" : `Part ${p}`);
+  const wikiUrl = (title) => `https://chainsaw-man.fandom.com/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`;
+
   /* ── Images ───────────────────────────────────
      media() membuat slot gambar. Kalau file tidak ada:
      - ph=true  → tampil placeholder halftone berisi label
      - ph=false → seluruh slot dihapus */
-  const media = (src, alt, { ph = true, label = "", cls = "", pos = "" } = {}) => `
+  // src kosong (karakter tanpa gambar resmi) langsung menampilkan placeholder tanpa request
+  const media = (src, alt, { ph = true, label = "", cls = "", pos = "" } = {}) => !src
+    ? (ph ? `<div class="media ${cls} is-missing" data-ph="1"><span class="media__ph"><b>${esc(label || alt)}</b><small>${esc(t("media.missing"))}</small></span></div>` : "")
+    : `
     <div class="media ${cls}" data-ph="${ph ? 1 : 0}">
       ${ph ? `<span class="media__ph"><b>${esc(label || alt)}</b><small>${esc(t("media.missing"))}</small></span>` : ""}
       <img src="${esc(src)}" alt="${esc(alt)}" loading="lazy"${pos ? ` style="object-position:${esc(pos)}"` : ""}>
@@ -42,6 +65,16 @@
 
   const factImg = (p) => p.img ?? `assets/img/facts/${p.id}.webp`;
 
+  // Blok spoiler: teks tertutup bar hitam yang bisa diklik
+  const spoilerText = (text) => state.showSpoilers
+    ? `<span class="redact is-open">${esc(text)}</span>`
+    : `<button type="button" class="redact" aria-label="${esc(t("profile.redacted"))}"><span>${esc(text)}</span></button>`;
+  const val = (v) => (typeof v === "string" ? esc(v) : v.spoiler ? spoilerText(L(v)) : esc(L(v)));
+  const revealOnClick = (el) => el?.addEventListener("click", (e) => {
+    const r = e.target.closest("button.redact");
+    if (r) r.outerHTML = `<span class="redact is-open">${r.querySelector("span").innerHTML}</span>`;
+  });
+
   /* ── Language ─────────────────────────────── */
   function applyLang() {
     document.documentElement.lang = state.lang;
@@ -55,8 +88,8 @@
     $("#ticker").innerHTML = [...items, ...items, ...items, ...items].map((s) => `<span>${esc(s)}</span>`).join("");
 
     renderAll();
-    if ($("#article").open) openArticle($("#article").dataset.id);
-    if ($("#profile").open) openProfile($("#profile").dataset.id);
+    if ($("#article")?.open) openArticle($("#article").dataset.id);
+    if ($("#profile")?.open) openProfile($("#profile").dataset.id);
   }
 
   function renderAll() {
@@ -80,7 +113,7 @@
     })
   );
 
-  // Kedua toggle spoiler (fun fact & karakter) saling sinkron
+  // Semua toggle spoiler di halaman saling sinkron
   $$(".spoiler-toggle").forEach((el) =>
     el.addEventListener("change", () => {
       state.showSpoilers = el.checked;
@@ -89,12 +122,13 @@
       renderChars();
       renderArcs();
       renderPhilosophy();
-      if (profile.open) openProfile(profile.dataset.id);
+      if ($("#profile")?.open) openProfile($("#profile").dataset.id);
     })
   );
 
   /* ── Intro & panduan mulai ─────────────────── */
   function renderIntro() {
+    if (!$("#intro-specs")) return;
     $("#intro-specs").innerHTML = t("intro.specs").map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("");
     $("#intro-reasons").innerHTML = t("intro.reasons")
       .map(([title, text], i) => `<li class="reason"><span class="reason__n">0${i + 1}</span><h4>${esc(title)}</h4><p>${esc(text)}</p></li>`)
@@ -102,6 +136,7 @@
   }
 
   function renderStart() {
+    if (!$("#start-steps")) return;
     $("#start-steps").innerHTML = t("start.steps")
       .map((st, i) => `
         <li class="step">
@@ -119,6 +154,7 @@
   const readMins = (p) => Math.max(1, Math.round(L(p.body).join(" ").split(/\s+/).length / 200));
 
   function renderFactFilters() {
+    if (!$("#fact-filters")) return;
     const counts = POSTS.reduce((m, p) => ((m[p.cat] = (m[p.cat] || 0) + 1), m), {});
     const cats = [["all", t("facts.all"), POSTS.length], ...Object.keys(CATEGORIES).map((k) => [k, L(CATEGORIES[k]), counts[k] || 0])];
     $("#fact-filters").innerHTML = cats
@@ -126,7 +162,7 @@
       .join("");
   }
 
-  $("#fact-filters").addEventListener("click", (e) => {
+  $("#fact-filters")?.addEventListener("click", (e) => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
     state.factCat = chip.dataset.cat;
@@ -135,12 +171,14 @@
   });
 
   function renderFacts() {
+    const grid = $("#facts-grid");
+    if (!grid) return;
     const list = sortedPosts.filter((p) => state.factCat === "all" || p.cat === state.factCat);
     if (!list.length) {
-      $("#facts-grid").innerHTML = `<p class="section__sub">${esc(t("facts.empty"))}</p>`;
+      grid.innerHTML = `<p class="section__sub">${esc(t("facts.empty"))}</p>`;
       return;
     }
-    $("#facts-grid").innerHTML = list
+    grid.innerHTML = list
       .map((p, i) => {
         const num = String(POSTS.length - POSTS.indexOf(p)).padStart(2, "0");
         const hidden = isHidden(p);
@@ -161,7 +199,7 @@
       .join("");
   }
 
-  $("#facts-grid").addEventListener("click", (e) => {
+  $("#facts-grid")?.addEventListener("click", (e) => {
     const card = e.target.closest(".fact");
     if (!card) return;
     const post = POSTS.find((p) => p.id === card.dataset.id);
@@ -179,7 +217,7 @@
 
   function openArticle(id) {
     const p = POSTS.find((x) => x.id === id);
-    if (!p) return;
+    if (!p || !dialog) return;
     dialog.dataset.id = id;
     $("#article-cover").innerHTML = media(factImg(p), L(p.title), { ph: false, cls: "media--wide", pos: p.imgPos });
     $("#share-toast").textContent = "";
@@ -192,7 +230,7 @@
   }
 
   // Bagikan: Web Share API di HP, salin link di desktop. Link #fact-<id> langsung membuka artikelnya.
-  $("#share-btn").addEventListener("click", async () => {
+  $("#share-btn")?.addEventListener("click", async () => {
     const p = POSTS.find((x) => x.id === dialog.dataset.id);
     const url = `${location.origin}${location.pathname}#fact-${p.id}`;
     const data = { title: L(p.title), text: `${t("share.text")} ${L(p.title)}`, url };
@@ -206,70 +244,97 @@
     try { await navigator.clipboard.writeText(text); return true; } catch { /* coba cara lama */ }
     const ta = Object.assign(document.createElement("textarea"), { value: text, readOnly: true });
     ta.style.cssText = "position:fixed;opacity:0";
-    dialog.append(ta); ta.select();
+    (dialog || document.body).append(ta); ta.select();
     const ok = document.execCommand("copy");
     ta.remove();
     return ok;
   }
 
+  // #fact-<id> membuka artikel, #char-<id> membuka profil karakter
   function openFromHash() {
-    const m = location.hash.match(/^#fact-([\w-]+)$/);
-    if (!m) return;
-    const p = POSTS.find((x) => x.id === m[1]);
-    if (p) { state.revealed.add(p.id); renderFacts(); openArticle(p.id); }
+    const fact = location.hash.match(/^#fact-([\w-]+)$/);
+    const p = fact && POSTS.find((x) => x.id === fact[1]);
+    if (p && dialog) { state.revealed.add(p.id); renderFacts(); openArticle(p.id); }
+    const ch = location.hash.match(/^#char-([\w-]+)$/);
+    const c = ch && ROSTER.find((x) => x.id === ch[1]);
+    if (c && $("#profile")) { state.revealed.add(c.id); renderChars(); openProfile(c.id); }
   }
   window.addEventListener("hashchange", openFromHash);
 
   /* ── Characters ───────────────────────────── */
+  const KINDS = ["human", "devil", "fiend", "hybrid", "other"];
+  const charMatches = (c, q = state.charQuery) =>
+    (state.charPart === "all" || String(c.part) === state.charPart) &&
+    (state.charKind === "all" || c.kind === state.charKind) &&
+    (!q || [c.name, L(c.role), CHAR_DETAILS[c.id]?.jp].join(" ").toLowerCase().includes(q));
+
   function renderCharFilters() {
-    const parts = [["all", t("chars.all")], ["1", "Part 1"], ["2", "Part 2"]];
-    $("#char-filters").innerHTML = parts
-      .map(([k, label]) => {
-        const n = k === "all" ? CHARACTERS.length : CHARACTERS.filter((c) => String(c.part) === k).length;
+    if (!$("#char-filters")) return;
+    const partKeys = ["all", "1", "2", ...(ROSTER.some((c) => c.part === "bs") ? ["bs"] : [])];
+    $("#char-filters").innerHTML = partKeys
+      .map((k) => {
+        const n = k === "all" ? ROSTER.length : ROSTER.filter((c) => String(c.part) === k).length;
+        const label = k === "all" ? t("chars.all") : partLabel(k);
         return `<button class="chip" data-part="${k}" aria-selected="${state.charPart === k}">${esc(label)}<span class="chip__n">${n}</span></button>`;
       })
       .join("");
+    if ($("#kind-filters")) {
+      $("#kind-filters").innerHTML = ["all", ...KINDS]
+        .map((k) => {
+          const n = k === "all" ? ROSTER.length : ROSTER.filter((c) => c.kind === k).length;
+          return `<button class="chip" data-kind="${k}" aria-selected="${state.charKind === k}">${esc(t(`kind.${k}`))}<span class="chip__n">${n}</span></button>`;
+        })
+        .join("");
+    }
   }
 
-  $("#char-filters").addEventListener("click", (e) => {
+  $("#char-filters")?.addEventListener("click", (e) => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
     state.charPart = chip.dataset.part;
     renderCharFilters();
     renderChars();
   });
+  $("#kind-filters")?.addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    state.charKind = chip.dataset.kind;
+    renderCharFilters();
+    renderChars();
+  });
 
   function renderChars() {
-    const q = state.charQuery;
-    const list = CHARACTERS
-      .filter((c) => state.charPart === "all" || String(c.part) === state.charPart)
-      .filter((c) => !q || [c.name, L(c.role), CHAR_DETAILS[c.id]?.jp].join(" ").toLowerCase().includes(q));
+    const grid = $("#chars-grid");
+    if (!grid) return;
+    const compact = grid.classList.contains("chars--compact");
+    const list = ROSTER.filter((c) => charMatches(c));
+    if ($("#chars-count")) $("#chars-count").textContent = `${list.length} / ${ROSTER.length}`;
     if (!list.length) {
-      $("#chars-grid").innerHTML = `<p class="section__sub">${esc(t("chars.empty"))}</p>`;
+      grid.innerHTML = `<p class="section__sub">${esc(t("chars.empty"))}</p>`;
       return;
     }
-    $("#chars-grid").innerHTML = list
+    grid.innerHTML = list
       .map((c, i) => {
         const hidden = isHidden(c);
-        const h = CHAR_DETAILS[c.id]?.profile.height;
+        const details = compact || hidden ? "" : `
+                   <p class="char__bio">${esc(L(c.bio))}</p>
+                   ${c.ability ? `<p class="char__ability"><b>${esc(t("chars.ability"))}</b> ${esc(L(c.ability))}</p>` : ""}`;
         return `
-          <article class="char ${hidden ? "is-hidden" : ""}" data-id="${c.id}" style="animation-delay:${i * 35}ms">
+          <article class="char ${hidden ? "is-hidden" : ""}" data-id="${c.id}" style="animation-delay:${Math.min(i, 24) * 30}ms">
             ${media(c.img, c.name, { label: c.name, cls: "media--portrait" })}
             <div class="char__body">
-              <p class="char__role">Part ${c.part} · ${esc(L(c.role))}</p>
+              <p class="char__role">${partLabel(c.part)} · ${esc(L(c.role))}</p>
               <h3 class="char__name">${esc(c.name)}</h3>
               ${hidden
                 ? `<button class="spoiler-tag spoiler-tag--btn" data-reveal="${c.id}">${esc(t("facts.spoilerHidden"))}</button>`
-                : `<p class="char__bio">${esc(L(c.bio))}</p>
-                   <p class="char__ability"><b>${esc(t("chars.ability"))}</b> ${esc(L(c.ability))}</p>
-                   <button class="char__open" data-profile="${c.id}">${esc(t("profile.open"))} →</button>`}
+                : `${details}<button class="char__open" data-profile="${c.id}">${esc(t("profile.open"))} →</button>`}
             </div>
           </article>`;
       })
       .join("");
   }
 
-  $("#chars-grid").addEventListener("click", (e) => {
+  $("#chars-grid")?.addEventListener("click", (e) => {
     const reveal = e.target.closest("[data-reveal]");
     if (reveal) {
       state.revealed.add(reveal.dataset.reveal);
@@ -282,7 +347,7 @@
     if (card) openProfile(card.dataset.id);
   });
 
-  $("#char-search").addEventListener("input", (e) => {
+  $("#char-search")?.addEventListener("input", (e) => {
     state.charQuery = e.target.value.trim().toLowerCase();
     renderChars();
   });
@@ -290,52 +355,51 @@
   /* ── Profil karakter ──────────────────────── */
   const profile = $("#profile");
 
-  // Teks spoiler dirender sebagai blok hitam yang bisa diklik
-  const spoilerText = (text) => state.showSpoilers
-    ? `<span class="redact is-open">${esc(text)}</span>`
-    : `<button type="button" class="redact" aria-label="${esc(t("profile.redacted"))}"><span>${esc(text)}</span></button>`;
-  const val = (v) => (typeof v === "string" ? esc(v) : v.spoiler ? spoilerText(L(v)) : esc(L(v)));
-
   function openProfile(id) {
-    const c = CHARACTERS.find((x) => x.id === id);
+    const c = ROSTER.find((x) => x.id === id);
     const d = CHAR_DETAILS[id];
-    if (!c || !d) return;
+    if (!c || !d || !profile) return;
     profile.dataset.id = id;
     const labels = t("profile.labels");
+    const keys = [...PROFILE_ORDER.filter((k) => k in d.profile), ...Object.keys(d.profile).filter((k) => !PROFILE_ORDER.includes(k))];
     $("#profile-img").innerHTML = media(c.img, c.name, { label: c.name, cls: "media--portrait" });
-    $("#profile-role").textContent = `Part ${c.part} · ${L(c.role)}`;
+    $("#profile-role").textContent = `${partLabel(c.part)} · ${L(c.role)}`;
     $("#profile-name").textContent = c.name;
-    $("#profile-jp").textContent = d.jp;
-    $("#profile-table").innerHTML = Object.entries(d.profile)
-      .map(([k, v]) => `<div><dt>${esc(labels[k] || k)}</dt><dd>${val(v)}</dd></div>`)
+    $("#profile-jp").textContent = d.jp || "";
+    $("#profile-bio").textContent = c.bio ? L(c.bio) : "";
+    $("#profile-table").innerHTML = keys
+      .map((k) => `<div><dt>${esc(labels[k] || k)}</dt><dd>${val(d.profile[k])}</dd></div>`)
       .join("");
-    $("#profile-facts").innerHTML = d.facts
-      .map((f) => `<li>${f.spoiler ? spoilerText(L(f)) : esc(L(f))}</li>`)
-      .join("");
+    $("#profile-facts").innerHTML = d.facts.length
+      ? d.facts.map((f) => `<li>${f.spoiler ? spoilerText(L(f)) : esc(L(f))}</li>`).join("")
+      : `<li class="profile__none">${esc(t("profile.noFacts"))}</li>`;
+    const wiki = c.wiki || d.wiki;
+    $("#profile-wiki").innerHTML = wiki
+      ? `<a class="inline-link" href="${esc(wikiUrl(wiki))}" target="_blank" rel="noopener">${esc(t("profile.wiki"))} ↗</a> <span>${esc(t("profile.license"))}</span>`
+      : "";
     if (!profile.open) profile.showModal();
     profile.scrollTop = 0;
   }
 
-  profile.addEventListener("click", (e) => {
-    const r = e.target.closest("button.redact");
-    if (r) r.outerHTML = `<span class="redact is-open">${r.querySelector("span").innerHTML}</span>`;
-  });
+  revealOnClick(profile);
 
-  // Pindah karakter (mengikuti urutan & filter yang sedang aktif, melewati yang masih disensor)
+  // Pindah karakter (mengikuti filter & pencarian yang aktif, melewati yang masih disensor)
   function stepProfile(dir) {
-    const list = CHARACTERS.filter((c) => (state.charPart === "all" || String(c.part) === state.charPart) && !isHidden(c));
-    if (!list.some((c) => c.id === profile.dataset.id)) return openProfile(list[0].id);
+    const list = ROSTER.filter((c) => charMatches(c) && !isHidden(c));
+    if (!list.length) return;
     const i = list.findIndex((c) => c.id === profile.dataset.id);
+    if (i < 0) return openProfile(list[0].id);
     openProfile(list[(i + dir + list.length) % list.length].id);
   }
-  $("#profile-prev").addEventListener("click", () => stepProfile(-1));
-  $("#profile-next").addEventListener("click", () => stepProfile(1));
+  $("#profile-prev")?.addEventListener("click", () => stepProfile(-1));
+  $("#profile-next")?.addEventListener("click", () => stepProfile(1));
 
   /* ── Bedah arc ─────────────────────────────── */
   // Isi arc ada di <details>: tertutup (bebas spoiler) sampai dibuka. Status buka diingat saat ganti bahasa.
   const openArcs = new Set();
 
   function renderArcs() {
+    if (!$("#arcs-list")) return;
     $("#arcs-list").innerHTML = ARCS
       .map((a, i) => `
         ${i === 0 || ARCS[i - 1].part !== a.part ? `<p class="arcs__part">Part ${a.part} · ${a.part === 1 ? "Public Safety Saga" : "Academy Saga"}</p>` : ""}
@@ -357,13 +421,14 @@
       .join("");
   }
 
-  $("#arcs-list").addEventListener("toggle", (e) => {
+  $("#arcs-list")?.addEventListener("toggle", (e) => {
     const i = Number(e.target.dataset.i);
     e.target.open ? openArcs.add(i) : openArcs.delete(i);
   }, true);
 
   /* ── Filosofi ─────────────────────────────── */
   function renderPhilosophy() {
+    if (!$("#phil-said")) return;
     $("#phil-said").innerHTML = PHILOSOPHY.said
       .map((q) => `<li class="quote"><p>${esc(L(q))}</p><cite>${esc(q.src)}</cite></li>`)
       .join("");
@@ -371,13 +436,11 @@
       .map((th) => `<li class="theme"><h4>${esc(L(th.title))}</h4><p>${th.spoiler ? spoilerText(L(th.text)) : esc(L(th.text))}</p></li>`)
       .join("");
   }
-  $("#phil-themes").addEventListener("click", (e) => {
-    const r = e.target.closest("button.redact");
-    if (r) r.outerHTML = `<span class="redact is-open">${r.querySelector("span").innerHTML}</span>`;
-  });
+  revealOnClick($("#phil-themes"));
 
   /* ── Timeline ─────────────────────────────── */
   function renderTimeline() {
+    if (!$("#timeline-list")) return;
     $("#timeline-list").innerHTML = TIMELINE
       .map((ev) => `
         <li class="tl">
@@ -390,6 +453,7 @@
 
   /* ── Gallery + lightbox ───────────────────── */
   function renderGallery() {
+    if (!$("#gallery-grid")) return;
     // Grid 4 kolom: item pertama 2×2 + 4 item kecil, sisanya baris 4 item.
     // Item terakhir melebar menutup sisa kolom di baris terakhir.
     const rest = (GALLERY.length - 5) % 4;
@@ -414,8 +478,8 @@
     $("#lightbox-cap").textContent = L(g.caption);
     lightbox.showModal();
   }
-  $("#gallery-grid").addEventListener("click", (e) => openShot(e.target.closest(".shot")));
-  $("#gallery-grid").addEventListener("keydown", (e) => {
+  $("#gallery-grid")?.addEventListener("click", (e) => openShot(e.target.closest(".shot")));
+  $("#gallery-grid")?.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openShot(e.target.closest(".shot")); }
   });
 
@@ -443,15 +507,18 @@
     }),
     { rootMargin: "-45% 0px -50% 0px" }
   );
-  ["top", "intro", "start", "facts", "characters", "arcs", "philosophy", "timeline", "gallery"].forEach((id) => spy.observe(document.getElementById(id)));
+  ["top", "intro", "start", "facts", "characters", "arcs", "philosophy", "timeline", "gallery"]
+    .map((id) => document.getElementById(id))
+    .filter(Boolean)
+    .forEach((el) => spy.observe(el));
 
   /* ── Init ─────────────────────────────────── */
-  $("#stat-facts").textContent = POSTS.length;
-  $("#stat-chars").textContent = CHARACTERS.length;
+  if ($("#stat-facts")) $("#stat-facts").textContent = POSTS.length;
+  if ($("#stat-chars")) $("#stat-chars").textContent = TOTAL_CHARACTERS;
   applyLang();
   openFromHash();
   // Konten dirender lewat JS, jadi lompat ke #bagian setelah render (mis. link #intro yang dibagikan)
-  if (/^#[a-z][\w-]*$/.test(location.hash) && !location.hash.startsWith("#fact-")) {
+  if (/^#[a-z][\w-]*$/.test(location.hash) && !/^#(fact|char)-/.test(location.hash)) {
     document.querySelector(location.hash)?.scrollIntoView({ behavior: "instant" });
   }
 })();

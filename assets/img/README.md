@@ -6,7 +6,8 @@ Semua gambar berformat `.webp`. Sumber: [Chainsaw Man Fandom Wiki](https://chain
 |---|---|---|
 | Hero | `hero.webp` | 1:1 |
 | Pratinjau link (WhatsApp, X, dll.) | `og.jpg` | 1200×630 |
-| Karakter | `characters/<id>.webp` — denji, pochita, power, aki, makima, kobeni, himeno, kishibe, reze, asa | 3:4 |
+| Karakter ensiklopedia | `wiki/<id>.webp` — 108 potret; 35 karakter tanpa gambar resmi memakai placeholder (`img: null` di `js/characters-all.js`) | 3:4 |
+| Karakter unggulan | `characters/<id>.webp` — denji, pochita, power, aki, makima, kobeni, himeno, kishibe, reze, asa | 3:4 |
 | Galeri | `gallery/*.webp` — daftar & urutannya di `GALLERY` (`js/content.js`) | bebas |
 | Sampul artikel | diatur lewat `img` & `imgPos` per artikel di `js/posts.js` | tampil 16:9 |
 

@@ -205,6 +205,29 @@
     </div>
   </dialog>
 
+  <!-- Profil karakter -->
+  <dialog class="article profile" id="profile" aria-labelledby="profile-name">
+    <div class="article__inner">
+      <button class="article__close" data-close data-i18n-aria="close" aria-label="Tutup">×</button>
+      <div class="profile__grid">
+        <div id="profile-img"></div>
+        <div>
+          <p class="eyebrow" id="profile-role"></p>
+          <h2 class="article__title" id="profile-name"></h2>
+          <p class="profile__jp" id="profile-jp" lang="ja"></p>
+          <dl class="profile__table" id="profile-table"></dl>
+        </div>
+      </div>
+      <h3 class="profile__h" data-i18n="profile.facts">Fun Fact</h3>
+      <ol class="profile__facts" id="profile-facts"></ol>
+      <p class="profile__hint" data-i18n="profile.hint">Blok hitam = spoiler. Klik untuk membuka.</p>
+      <div class="profile__nav">
+        <button class="btn btn--outline" id="profile-prev" data-i18n="profile.prev">← Sebelumnya</button>
+        <button class="btn btn--outline" id="profile-next" data-i18n="profile.next">Berikutnya →</button>
+      </div>
+    </div>
+  </dialog>
+
   <!-- Lightbox -->
   <dialog class="lightbox" id="lightbox" aria-label="Gambar">
     <button class="article__close lightbox__close" data-close data-i18n-aria="close" aria-label="Tutup">×</button>
@@ -217,6 +240,7 @@
   <script src="js/i18n.js"></script>
   <script src="js/posts.js"></script>
   <script src="js/content.js"></script>
+  <script src="js/characters-detail.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

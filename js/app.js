@@ -9,6 +9,7 @@
     lang: localStorage.getItem("lang") || "id",
     factCat: "all",
     charPart: "all",
+    charQuery: "",
     showSpoilers: false,
     revealed: new Set(),
   };
@@ -46,6 +47,7 @@
     document.documentElement.lang = state.lang;
     $$("[data-i18n]").forEach((el) => (el.textContent = t(el.dataset.i18n)));
     $$("[data-i18n-html]").forEach((el) => (el.innerHTML = t(el.dataset.i18nHtml)));
+    $$("[data-i18n-ph]").forEach((el) => (el.placeholder = t(el.dataset.i18nPh)));
     $$("[data-i18n-aria]").forEach((el) => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
     $$(".lang__btn").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === state.lang)));
 
@@ -238,8 +240,15 @@
   });
 
   function renderChars() {
-    $("#chars-grid").innerHTML = CHARACTERS
+    const q = state.charQuery;
+    const list = CHARACTERS
       .filter((c) => state.charPart === "all" || String(c.part) === state.charPart)
+      .filter((c) => !q || [c.name, L(c.role), CHAR_DETAILS[c.id]?.jp].join(" ").toLowerCase().includes(q));
+    if (!list.length) {
+      $("#chars-grid").innerHTML = `<p class="section__sub">${esc(t("chars.empty"))}</p>`;
+      return;
+    }
+    $("#chars-grid").innerHTML = list
       .map((c, i) => {
         const hidden = isHidden(c);
         const h = CHAR_DETAILS[c.id]?.profile.height;
@@ -271,6 +280,11 @@
     // Klik di mana saja pada kartu yang tidak disensor membuka profil
     const card = e.target.closest(".char:not(.is-hidden)");
     if (card) openProfile(card.dataset.id);
+  });
+
+  $("#char-search").addEventListener("input", (e) => {
+    state.charQuery = e.target.value.trim().toLowerCase();
+    renderChars();
   });
 
   /* ── Profil karakter ──────────────────────── */
@@ -310,6 +324,7 @@
   // Pindah karakter (mengikuti urutan & filter yang sedang aktif, melewati yang masih disensor)
   function stepProfile(dir) {
     const list = CHARACTERS.filter((c) => (state.charPart === "all" || String(c.part) === state.charPart) && !isHidden(c));
+    if (!list.some((c) => c.id === profile.dataset.id)) return openProfile(list[0].id);
     const i = list.findIndex((c) => c.id === profile.dataset.id);
     openProfile(list[(i + dir + list.length) % list.length].id);
   }

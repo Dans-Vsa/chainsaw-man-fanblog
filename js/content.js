@@ -94,6 +94,126 @@ const CHARACTERS = [
     ability: { id: "Ledakan dari tubuhnya sendiri.", en: "Explosions from her own body." },
   },
   {
+    id: "angel", part: 1, img: "assets/img/characters/angel.webp",
+    name: "Angel Devil",
+    role: { id: "Iblis Malaikat · Divisi 4", en: "Angel Devil · Division 4" },
+    bio: {
+      id: "Iblis bersayap yang malas dan pesimis, anggota Divisi Khusus 4 yang dipasangkan dengan Aki.",
+      en: "A lazy, pessimistic winged devil in Special Division 4, partnered with Aki.",
+    },
+    ability: { id: "Sentuhannya menyerap sisa umur manusia, yang bisa ia ubah menjadi senjata.", en: "His touch absorbs human lifespans, which he can turn into weapons." },
+  },
+  {
+    id: "beam", part: 1, img: "assets/img/characters/beam.webp",
+    name: "Beam",
+    role: { id: "Fiend Hiu · Divisi 4", en: "Shark Fiend · Division 4" },
+    bio: {
+      id: "Fiend hiu yang polos dan hiperaktif. Ia memuja Chainsaw Man dan memanggil Denji “Tuan Chainsaw”.",
+      en: "An innocent, hyperactive shark fiend who worships Chainsaw Man and calls Denji “Lord Chainsaw”.",
+    },
+    ability: { id: "Berenang menembus tanah dan dinding seolah air; bisa berubah ke wujud hiu.", en: "Swims through ground and walls as if they were water; can shift into shark form." },
+  },
+  {
+    id: "galgali", part: 1, img: "assets/img/characters/galgali.webp",
+    name: "Galgali",
+    role: { id: "Violence Fiend · Divisi 4", en: "Violence Fiend · Division 4" },
+    bio: {
+      id: "Fiend bermasker yang, meski mewakili “kekerasan”, justru tenang dan ramah.",
+      en: "A masked fiend who, despite embodying “violence”, is calm and friendly.",
+    },
+    ability: { id: "Kekuatan fisik luar biasa, sengaja ditekan oleh masker beracun yang ia pakai.", en: "Immense physical strength, deliberately suppressed by the poison mask he wears." },
+  },
+  {
+    id: "princi", part: 1, img: "assets/img/characters/princi.webp",
+    name: "Princi",
+    role: { id: "Iblis Laba-laba · Divisi 4", en: "Spider Devil · Division 4" },
+    bio: {
+      id: "Iblis Laba-laba yang menjadi bawahan setia Makima di Divisi Khusus 4.",
+      en: "The Spider Devil, a loyal subordinate of Makima in Special Division 4.",
+    },
+    ability: { id: "Wujud laba-laba raksasa yang cepat dan kuat.", en: "A fast, powerful giant spider form." },
+  },
+  {
+    id: "arai", part: 1, img: "assets/img/characters/arai.webp",
+    name: "Hirokazu Arai",
+    role: { id: "Devil Hunter · rekan Kobeni", en: "Devil Hunter · Kobeni's partner" },
+    bio: {
+      id: "Rekrutan baru Divisi 4 yang berpasangan dengan Kobeni — serius dan penuh semangat.",
+      en: "A new Division 4 recruit paired with Kobeni — earnest and eager.",
+    },
+    ability: { id: "Kontrak dengan Iblis Rubah.", en: "Contract with the Fox Devil." },
+  },
+  {
+    id: "akane", part: 1, img: "assets/img/characters/akane.webp",
+    name: "Akane Sawatari",
+    role: { id: "Devil Hunter swasta", en: "Private Devil Hunter" },
+    bio: {
+      id: "Devil Hunter swasta berhoodie merah yang bersekutu dengan Katana Man untuk menyerang Divisi 4.",
+      en: "A red-hoodied private Devil Hunter who teams up with Katana Man to attack Division 4.",
+    },
+    ability: { id: "Kontrak dengan Iblis Ular yang bisa menelan musuh.", en: "Contract with the Snake Devil, which can swallow enemies." },
+  },
+  {
+    id: "katana", part: 1, img: "assets/img/characters/katana.webp",
+    name: "Katana Man",
+    role: { id: "Hibrida Iblis Katana", en: "Katana Devil hybrid" },
+    bio: {
+      id: "Cucu si penagih utang yakuza yang dibunuh Denji. Ia bergabung dengan Akane untuk balas dendam dan mencuri jantung Denji.",
+      en: "Grandson of the yakuza debt collector Denji killed. He teams up with Akane for revenge and to steal Denji's heart.",
+    },
+    ability: { id: "Bilah katana mencuat dari lengan dan kepalanya saat menarik tali — mirip Denji.", en: "Katana blades burst from his arms and head when he pulls a cord — much like Denji." },
+  },
+  {
+    id: "quanxi", part: 1, img: "assets/img/characters/quanxi.webp",
+    name: "Quanxi",
+    role: { id: "Devil Hunter Pertama · Tiongkok", en: "The First Devil Hunter · China" },
+    bio: {
+      id: "Dijuluki “Devil Hunter Pertama”. Petarung legendaris dari Tiongkok yang datang memburu Denji bersama para fiend pendampingnya.",
+      en: "Known as “the First Devil Hunter”, a legendary fighter from China who comes for Denji with her fiend companions.",
+    },
+    ability: { id: "Hibrida Iblis Busur dengan kecepatan nyaris tak terlihat.", en: "A Bow Devil hybrid with near-invisible speed." },
+  },
+  {
+    id: "santa", part: 1, img: "assets/img/characters/santa.webp",
+    name: "Santa Claus",
+    role: { id: "Pembunuh bayaran · Jerman", en: "Assassin · Germany" },
+    bio: {
+      id: "Pembunuh bayaran asal Jerman yang ikut memburu jantung Denji — dan jauh lebih berbahaya daripada kelihatannya.",
+      en: "A German assassin hunting Denji's heart — and far more dangerous than they look.",
+    },
+    ability: { id: "Memegang kontrak dengan beberapa iblis sekaligus.", en: "Holds contracts with several devils at once." },
+  },
+  {
+    id: "yoshida", part: 1, img: "assets/img/characters/yoshida.webp",
+    name: "Hirofumi Yoshida",
+    role: { id: "Devil Hunter · pengawal Denji", en: "Devil Hunter · Denji's bodyguard" },
+    bio: {
+      id: "Devil Hunter santai yang ditugaskan mengawal Denji, lalu menyamar menjadi teman sekolahnya di Part 2.",
+      en: "A laid-back Devil Hunter assigned to guard Denji, who later attends school with him in Part 2.",
+    },
+    ability: { id: "Kontrak dengan Iblis Gurita.", en: "Contract with the Octopus Devil." },
+  },
+  {
+    id: "meowy", part: 1, img: "assets/img/characters/meowy.webp",
+    name: "Meowy",
+    role: { id: "Kucing Power", en: "Power's cat" },
+    bio: {
+      id: "Kucing putih kesayangan Power — alasan Power meminta tolong Denji melawan Iblis Kelelawar.",
+      en: "Power's beloved white cat — the reason Power asks Denji to fight the Bat Devil.",
+    },
+    ability: { id: "Membuat semua orang luluh. Itu saja.", en: "Melting everyone's heart. That's it." },
+  },
+  {
+    id: "nayuta", part: 1, img: "assets/img/characters/nayuta.webp", spoiler: true,
+    name: "Nayuta",
+    role: { id: "Reinkarnasi Iblis Kendali", en: "The reborn Control Devil" },
+    bio: {
+      id: "Gadis kecil yang dibesarkan Denji sebagai adiknya — reinkarnasi Iblis Kendali setelah Makima kalah.",
+      en: "A little girl Denji raises as his sister — the Control Devil reborn after Makima's defeat.",
+    },
+    ability: { id: "Kendali atas makhluk lain, seperti pendahulunya.", en: "Control over other beings, like her predecessor." },
+  },
+  {
     id: "asa", part: 2, img: "assets/img/characters/asa.webp",
     name: "Asa Mitaka",
     role: { id: "Protagonis Part 2", en: "Part 2 Protagonist" },
@@ -102,6 +222,66 @@ const CHARACTERS = [
       en: "A loner high-school student who shares her body with Yoru, the War Devil.",
     },
     ability: { id: "Yoru bisa mengubah benda miliknya menjadi senjata.", en: "Yoru can turn things she owns into weapons." },
+  },
+  {
+    id: "yoru", part: 2, img: "assets/img/characters/yoru.webp",
+    name: "Yoru",
+    role: { id: "Iblis Perang", en: "War Devil" },
+    bio: {
+      id: "Iblis Perang yang berbagi tubuh dengan Asa dan bertekad membunuh Chainsaw Man untuk merebut kembali kekuatannya.",
+      en: "The War Devil, sharing Asa's body and determined to kill Chainsaw Man to take back her power.",
+    },
+    ability: { id: "Mengubah apa pun yang dianggap “miliknya” menjadi senjata — makin besar rasa sayangnya, makin kuat senjatanya.", en: "Turns anything she considers “hers” into a weapon — the stronger the attachment, the stronger the weapon." },
+  },
+  {
+    id: "fami", part: 2, img: "assets/img/characters/fami.webp", spoiler: true,
+    name: "Fami",
+    role: { id: "Iblis Kelaparan", en: "Famine Devil" },
+    bio: {
+      id: "Siswi misterius yang selalu kelaparan — sebenarnya Iblis Kelaparan dan pemimpin asli Gereja Chainsaw Man.",
+      en: "A mysterious, always-hungry student — secretly the Famine Devil and true leader of the Chainsaw Man Church.",
+    },
+    ability: { id: "Memanfaatkan rasa lapar dan memanipulasi orang dari balik layar.", en: "Exploits hunger and manipulates people from behind the scenes." },
+  },
+  {
+    id: "yuko", part: 2, img: "assets/img/characters/yuko.webp",
+    name: "Yuko",
+    role: { id: "Teman Asa · Klub Devil Hunter", en: "Asa's friend · Devil Hunter Club" },
+    bio: {
+      id: "Teman pertama Asa di Klub Devil Hunter — ceria, baik hati, dan menyimpan rahasia.",
+      en: "Asa's first friend in the Devil Hunter Club — cheerful, kind, and hiding a secret.",
+    },
+    ability: { id: "Rahasia — lihat profil (spoiler).", en: "A secret — see profile (spoiler)." },
+  },
+  {
+    id: "haruka", part: 2, img: "assets/img/characters/haruka.webp",
+    name: "Haruka Iseumi",
+    role: { id: "Ketua Klub Devil Hunter", en: "Devil Hunter Club president" },
+    bio: {
+      id: "Ketua Klub Devil Hunter sekaligus ketua OSIS yang mengaku sebagai Chainsaw Man — padahal ia cuma penggemar beratnya.",
+      en: "President of both the Devil Hunter Club and student council, who claims to be Chainsaw Man — but is really just a superfan.",
+    },
+    ability: { id: "Devil hunter sekolah — lengkap dengan tali palsu di dadanya.", en: "A school devil hunter — complete with a fake ripcord in his chest." },
+  },
+  {
+    id: "fumiko", part: 2, img: "assets/img/characters/fumiko.webp",
+    name: "Fumiko Mifune",
+    role: { id: "Devil Hunter · Divisi 7", en: "Devil Hunter · Division 7" },
+    bio: {
+      id: "Devil Hunter Public Safety yang “mengawal” Denji di sekolah dengan cara yang sangat mencurigakan.",
+      en: "A Public Safety Devil Hunter who “guards” Denji at school in a very suspicious way.",
+    },
+    ability: { id: "Kontrak iblis yang memungkinkannya membuat duplikat diri.", en: "A devil contract that lets her create duplicates of herself." },
+  },
+  {
+    id: "barem", part: 2, img: "assets/img/characters/barem.webp", spoiler: true,
+    name: "Barem Bridge",
+    role: { id: "Hibrida Iblis Pelontar Api", en: "Flamethrower Devil hybrid" },
+    bio: {
+      id: "Hibrida yang pertama muncul sebagai bawahan Makima, lalu kembali sebagai tangan kanan Gereja Chainsaw Man.",
+      en: "A hybrid who first appears as Makima's subordinate, then returns as the Chainsaw Man Church's right hand.",
+    },
+    ability: { id: "Menyemburkan api dari tubuhnya.", en: "Breathes fire from his body." },
   },
 ];
 

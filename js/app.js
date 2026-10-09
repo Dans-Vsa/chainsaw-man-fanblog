@@ -435,4 +435,8 @@
   $("#stat-chars").textContent = CHARACTERS.length;
   applyLang();
   openFromHash();
+  // Konten dirender lewat JS, jadi lompat ke #bagian setelah render (mis. link #intro yang dibagikan)
+  if (/^#[a-z][\w-]*$/.test(location.hash) && !location.hash.startsWith("#fact-")) {
+    document.querySelector(location.hash)?.scrollIntoView({ behavior: "instant" });
+  }
 })();

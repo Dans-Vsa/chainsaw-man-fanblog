@@ -6,7 +6,9 @@ HTML, CSS, dan JS murni — tanpa build, langsung jalan di GitHub Pages.
 ## Fitur
 - **Fun fact** bergaya majalah, filter per kategori, sensor spoiler (klik untuk buka), artikel di dialog dengan gambar sampul.
 - **Karakter** dengan foto potret, filter Part 1 / Part 2. Klik kartu untuk membuka **profil lengkap** (umur, lahir, tinggi, asal, debut, pengisi suara, kontrak, status) dan fun fact per karakter. Info spoiler tampil sebagai blok hitam yang bisa diklik.
-- **Linimasa** rilis manga, anime, dan film.
+- **Bedah 14 arc** (Part 1 & 2): kejadian dan makna tiap arc, tertutup sampai dibuka (spoiler).
+- **Pesan & filosofi**: pernyataan Fujimoto (bersumber) dipisah dari tafsiran tema.
+- **Linimasa** rilis manga, anime, dan film — sampai tamatnya manga (2026).
 - **Galeri** dengan lightbox.
 - **Bahasa ID / EN** — semua teks dan format tanggal. Pilihan disimpan di browser.
 
@@ -15,6 +17,7 @@ HTML, CSS, dan JS murni — tanpa build, langsung jalan di GitHub Pages.
 |---|---|
 | `js/posts.js` | Fun fact (`POSTS`) dan kategori (`CATEGORIES`) |
 | `js/content.js` | Karakter (`CHARACTERS`), linimasa (`TIMELINE`), galeri (`GALLERY`) |
+| `js/arcs.js` | Bedah arc (`ARCS`) dan filosofi (`PHILOSOPHY`) |
 | `js/characters-detail.js` | Profil & fun fact per karakter (`CHAR_DETAILS`) — tandai `spoiler: true` untuk menyensor |
 | `js/i18n.js` | Teks UI dalam 2 bahasa (`STR`) |
 | `js/app.js` | Logika render, filter, spoiler, ganti bahasa |
@@ -27,7 +30,7 @@ Tambahkan objek baru ke array `POSTS` di `js/posts.js`:
 ```js
 {
   id: "slug-unik",
-  cat: "lore",            // creator | lore | characters | anime
+  cat: "lore",            // creator | lore | characters | anime | manga
   date: "2026-10-10",
   spoiler: false,         // true = disensor sampai diklik
   title:   { id: "...", en: "..." },

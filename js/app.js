@@ -64,6 +64,8 @@
     renderFacts();
     renderCharFilters();
     renderChars();
+    renderArcs();
+    renderPhilosophy();
     renderTimeline();
     renderGallery();
   }
@@ -83,6 +85,8 @@
       $$(".spoiler-toggle").forEach((o) => (o.checked = el.checked));
       renderFacts();
       renderChars();
+      renderArcs();
+      renderPhilosophy();
       if (profile.open) openProfile(profile.dataset.id);
     })
   );
@@ -312,6 +316,51 @@
   $("#profile-prev").addEventListener("click", () => stepProfile(-1));
   $("#profile-next").addEventListener("click", () => stepProfile(1));
 
+  /* ── Bedah arc ─────────────────────────────── */
+  // Isi arc ada di <details>: tertutup (bebas spoiler) sampai dibuka. Status buka diingat saat ganti bahasa.
+  const openArcs = new Set();
+
+  function renderArcs() {
+    $("#arcs-list").innerHTML = ARCS
+      .map((a, i) => `
+        ${i === 0 || ARCS[i - 1].part !== a.part ? `<p class="arcs__part">Part ${a.part} · ${a.part === 1 ? "Public Safety Saga" : "Academy Saga"}</p>` : ""}
+        <details class="arc" data-i="${i}" ${openArcs.has(i) || state.showSpoilers ? "open" : ""}>
+          <summary>
+            <span class="arc__n">${String(i + 1).padStart(2, "0")}</span>
+            <span class="arc__head">
+              <span class="arc__meta">${esc(t("arcs.chapters"))} ${esc(a.chapters)} · ${esc(L(a.adapt))}</span>
+              <span class="arc__name">${esc(a.name)} Arc</span>
+              <span class="arc__hook">${esc(L(a.hook))}</span>
+            </span>
+            <span class="arc__toggle"><span class="arc__when-closed">${esc(t("arcs.open"))}</span><span class="arc__when-open">${esc(t("arcs.close"))}</span></span>
+          </summary>
+          <div class="arc__body">
+            <div><h4>${esc(t("arcs.happened"))}</h4><p>${esc(L(a.happened))}</p></div>
+            <div><h4>${esc(t("arcs.meaning"))}</h4><p>${esc(L(a.meaning))}</p></div>
+          </div>
+        </details>`)
+      .join("");
+  }
+
+  $("#arcs-list").addEventListener("toggle", (e) => {
+    const i = Number(e.target.dataset.i);
+    e.target.open ? openArcs.add(i) : openArcs.delete(i);
+  }, true);
+
+  /* ── Filosofi ─────────────────────────────── */
+  function renderPhilosophy() {
+    $("#phil-said").innerHTML = PHILOSOPHY.said
+      .map((q) => `<li class="quote"><p>${esc(L(q))}</p><cite>${esc(q.src)}</cite></li>`)
+      .join("");
+    $("#phil-themes").innerHTML = PHILOSOPHY.themes
+      .map((th) => `<li class="theme"><h4>${esc(L(th.title))}</h4><p>${th.spoiler ? spoilerText(L(th.text)) : esc(L(th.text))}</p></li>`)
+      .join("");
+  }
+  $("#phil-themes").addEventListener("click", (e) => {
+    const r = e.target.closest("button.redact");
+    if (r) r.outerHTML = `<span class="redact is-open">${r.querySelector("span").innerHTML}</span>`;
+  });
+
   /* ── Timeline ─────────────────────────────── */
   function renderTimeline() {
     $("#timeline-list").innerHTML = TIMELINE
@@ -379,7 +428,7 @@
     }),
     { rootMargin: "-45% 0px -50% 0px" }
   );
-  ["top", "intro", "start", "facts", "characters", "timeline", "gallery"].forEach((id) => spy.observe(document.getElementById(id)));
+  ["top", "intro", "start", "facts", "characters", "arcs", "philosophy", "timeline", "gallery"].forEach((id) => spy.observe(document.getElementById(id)));
 
   /* ── Init ─────────────────────────────────── */
   $("#stat-facts").textContent = POSTS.length;

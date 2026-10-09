@@ -373,6 +373,7 @@
     $("#profile-facts").innerHTML = d.facts.length
       ? d.facts.map((f) => `<li>${f.spoiler ? spoilerText(L(f)) : esc(L(f))}</li>`).join("")
       : `<li class="profile__none">${esc(t("profile.noFacts"))}</li>`;
+    renderHistory(id);
     const wiki = c.wiki || d.wiki;
     $("#profile-wiki").innerHTML = wiki
       ? `<a class="inline-link" href="${esc(wikiUrl(wiki))}" target="_blank" rel="noopener">${esc(t("profile.wiki"))} ↗</a> <span>${esc(t("profile.license"))}</span>`
@@ -382,6 +383,28 @@
   }
 
   revealOnClick(profile);
+
+  // Riwayat per arc: hanya dimuat di ensiklopedia (history.js). Tiap arc tertutup sampai dibuka (spoiler).
+  function renderHistory(id) {
+    const box = $("#profile-history");
+    if (!box) return;
+    if (typeof HISTORY === "undefined") {
+      box.innerHTML = `<p class="profile__hint"><a class="inline-link" href="karakter.html#char-${esc(id)}">${esc(t("profile.historyMore"))}</a></p>`;
+      return;
+    }
+    const parts = HISTORY[id];
+    if (!parts?.length) {
+      box.innerHTML = `<p class="profile__hint">${esc(t("profile.historyNone"))}</p>`;
+      return;
+    }
+    box.innerHTML = `<p class="profile__hint">${esc(t("profile.historyNote"))}</p>` + parts
+      .map((h, i) => `
+        <details class="hist"${state.showSpoilers ? " open" : ""}>
+          <summary><span class="hist__n">${String(i + 1).padStart(2, "0")}</span><span class="hist__t">${esc(L(h.t))}</span><span class="hist__toggle">${esc(t("facts.spoiler"))}</span></summary>
+          <p>${esc(L(h))}</p>
+        </details>`)
+      .join("");
+  }
 
   // Pindah karakter (mengikuti filter & pencarian yang aktif, melewati yang masih disensor)
   function stepProfile(dir) {

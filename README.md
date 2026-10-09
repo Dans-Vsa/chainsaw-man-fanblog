@@ -5,7 +5,7 @@ HTML, CSS, dan JS murni — tanpa build, langsung jalan di GitHub Pages.
 
 ## Fitur
 - **Fun fact** bergaya majalah, filter per kategori, sensor spoiler (klik untuk buka), artikel di dialog dengan gambar sampul.
-- **Karakter** dengan foto potret, filter Part 1 / Part 2, karakter spoiler disensor.
+- **Karakter** dengan foto potret, filter Part 1 / Part 2. Klik kartu untuk membuka **profil lengkap** (umur, lahir, tinggi, asal, debut, pengisi suara, kontrak, status) dan fun fact per karakter. Info spoiler tampil sebagai blok hitam yang bisa diklik.
 - **Linimasa** rilis manga, anime, dan film.
 - **Galeri** dengan lightbox.
 - **Bahasa ID / EN** — semua teks dan format tanggal. Pilihan disimpan di browser.
@@ -15,6 +15,7 @@ HTML, CSS, dan JS murni — tanpa build, langsung jalan di GitHub Pages.
 |---|---|
 | `js/posts.js` | Fun fact (`POSTS`) dan kategori (`CATEGORIES`) |
 | `js/content.js` | Karakter (`CHARACTERS`), linimasa (`TIMELINE`), galeri (`GALLERY`) |
+| `js/characters-detail.js` | Profil & fun fact per karakter (`CHAR_DETAILS`) — tandai `spoiler: true` untuk menyensor |
 | `js/i18n.js` | Teks UI dalam 2 bahasa (`STR`) |
 | `js/app.js` | Logika render, filter, spoiler, ganti bahasa |
 | `css/style.css` | Gaya, token sesuai `DESIGN.md` |

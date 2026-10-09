@@ -54,6 +54,7 @@
 
     renderAll();
     if ($("#article").open) openArticle($("#article").dataset.id);
+    if ($("#profile").open) openProfile($("#profile").dataset.id);
   }
 
   function renderAll() {
@@ -82,6 +83,7 @@
       $$(".spoiler-toggle").forEach((o) => (o.checked = el.checked));
       renderFacts();
       renderChars();
+      if (profile.open) openProfile(profile.dataset.id);
     })
   );
 
@@ -236,6 +238,7 @@
       .filter((c) => state.charPart === "all" || String(c.part) === state.charPart)
       .map((c, i) => {
         const hidden = isHidden(c);
+        const h = CHAR_DETAILS[c.id]?.profile.height;
         return `
           <article class="char ${hidden ? "is-hidden" : ""}" data-id="${c.id}" style="animation-delay:${i * 35}ms">
             ${media(c.img, c.name, { label: c.name, cls: "media--portrait" })}
@@ -245,7 +248,8 @@
               ${hidden
                 ? `<button class="spoiler-tag spoiler-tag--btn" data-reveal="${c.id}">${esc(t("facts.spoilerHidden"))}</button>`
                 : `<p class="char__bio">${esc(L(c.bio))}</p>
-                   <p class="char__ability"><b>${esc(t("chars.ability"))}</b> ${esc(L(c.ability))}</p>`}
+                   <p class="char__ability"><b>${esc(t("chars.ability"))}</b> ${esc(L(c.ability))}</p>
+                   <button class="char__open" data-profile="${c.id}">${esc(t("profile.open"))} →</button>`}
             </div>
           </article>`;
       })
@@ -253,11 +257,60 @@
   }
 
   $("#chars-grid").addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-reveal]");
-    if (!btn) return;
-    state.revealed.add(btn.dataset.reveal);
-    renderChars();
+    const reveal = e.target.closest("[data-reveal]");
+    if (reveal) {
+      state.revealed.add(reveal.dataset.reveal);
+      renderChars();
+      $(`.char[data-id="${reveal.dataset.reveal}"] .char__open`)?.focus();
+      return;
+    }
+    // Klik di mana saja pada kartu yang tidak disensor membuka profil
+    const card = e.target.closest(".char:not(.is-hidden)");
+    if (card) openProfile(card.dataset.id);
   });
+
+  /* ── Profil karakter ──────────────────────── */
+  const profile = $("#profile");
+
+  // Teks spoiler dirender sebagai blok hitam yang bisa diklik
+  const spoilerText = (text) => state.showSpoilers
+    ? `<span class="redact is-open">${esc(text)}</span>`
+    : `<button type="button" class="redact" aria-label="${esc(t("profile.redacted"))}"><span>${esc(text)}</span></button>`;
+  const val = (v) => (typeof v === "string" ? esc(v) : v.spoiler ? spoilerText(L(v)) : esc(L(v)));
+
+  function openProfile(id) {
+    const c = CHARACTERS.find((x) => x.id === id);
+    const d = CHAR_DETAILS[id];
+    if (!c || !d) return;
+    profile.dataset.id = id;
+    const labels = t("profile.labels");
+    $("#profile-img").innerHTML = media(c.img, c.name, { label: c.name, cls: "media--portrait" });
+    $("#profile-role").textContent = `Part ${c.part} · ${L(c.role)}`;
+    $("#profile-name").textContent = c.name;
+    $("#profile-jp").textContent = d.jp;
+    $("#profile-table").innerHTML = Object.entries(d.profile)
+      .map(([k, v]) => `<div><dt>${esc(labels[k] || k)}</dt><dd>${val(v)}</dd></div>`)
+      .join("");
+    $("#profile-facts").innerHTML = d.facts
+      .map((f) => `<li>${f.spoiler ? spoilerText(L(f)) : esc(L(f))}</li>`)
+      .join("");
+    if (!profile.open) profile.showModal();
+    profile.scrollTop = 0;
+  }
+
+  profile.addEventListener("click", (e) => {
+    const r = e.target.closest("button.redact");
+    if (r) r.outerHTML = `<span class="redact is-open">${r.querySelector("span").innerHTML}</span>`;
+  });
+
+  // Pindah karakter (mengikuti urutan & filter yang sedang aktif, melewati yang masih disensor)
+  function stepProfile(dir) {
+    const list = CHARACTERS.filter((c) => (state.charPart === "all" || String(c.part) === state.charPart) && !isHidden(c));
+    const i = list.findIndex((c) => c.id === profile.dataset.id);
+    openProfile(list[(i + dir + list.length) % list.length].id);
+  }
+  $("#profile-prev").addEventListener("click", () => stepProfile(-1));
+  $("#profile-next").addEventListener("click", () => stepProfile(1));
 
   /* ── Timeline ─────────────────────────────── */
   function renderTimeline() {

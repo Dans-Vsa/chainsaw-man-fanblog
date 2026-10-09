@@ -6,6 +6,7 @@ HTML, CSS, dan JS murni — tanpa build, langsung jalan di GitHub Pages.
 ## Fitur
 - **Fun fact** bergaya majalah, filter per kategori, sensor spoiler (klik untuk buka), artikel di dialog dengan gambar sampul.
 - **Ensiklopedia 171 karakter** (`karakter.html`) — setara Chainsaw Man Fandom Wiki: filter Part 1 / Part 2 / Spin-off, filter jenis (Manusia, Iblis, Fiend, Hibrida), pencarian, dan link langsung `#char-<id>`. Beranda menampilkan 28 karakter unggulan. Klik kartu untuk membuka **profil lengkap** (umur, lahir, tinggi, asal, debut, pengisi suara, kontrak, saudara, status) dan fun fact per karakter. Info spoiler tampil sebagai blok hitam yang bisa diklik.
+- **Riwayat per arc** untuk 159 karakter (`js/history.js`) — ringkasan ditulis ulang dari bagian History wiki (ID/EN), tertutup sebagai spoiler, dengan link ke wiki.
 - **Bedah 14 arc** (Part 1 & 2): kejadian dan makna tiap arc, tertutup sampai dibuka (spoiler).
 - **Pesan & filosofi**: pernyataan Fujimoto (bersumber) dipisah dari tafsiran tema.
 - **Linimasa** rilis manga, anime, dan film — sampai tamatnya manga (2026).

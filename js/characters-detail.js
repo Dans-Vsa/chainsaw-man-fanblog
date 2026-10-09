@@ -511,7 +511,7 @@ const CHAR_DETAILS = {
       height: UNKNOWN,
       origin: { id: "Tidak diungkap", en: "Not revealed" },
       debut: { id: "Chapter 108 (disebut di chapter 84)", en: "Chapter 108 (mentioned in chapter 84)" },
-      family: { spoiler: true, id: "Saudari dari Iblis Kematian, Yoru, dan Iblis Kendali", en: "Sister of the Death Devil, Yoru, and the Control Devil" },
+      family: { spoiler: true, id: "Saudari dari Iblis Kelaparan (asli), Yoru, dan Iblis Kendali", en: "Sister of the (real) Famine Devil, Yoru, and the Control Devil" },
       status: { spoiler: true, id: "Masih hidup", en: "Alive" },
     },
     facts: [
@@ -519,7 +519,7 @@ const CHAR_DETAILS = {
       { id: "Antingnya berbentuk timbangan — rujukan ke Penunggang Kuda Kelaparan dalam Kitab Wahyu yang membawa timbangan untuk menakar makanan.", en: "Her earrings are shaped like scales — a nod to the Horseman of Famine in Revelation, who carries scales for weighing food." },
       { id: "Kepalanya hampir selalu miring ke kiri, seperti timbangan yang tidak seimbang.", en: "Her head is almost always tilted to the left, like an unbalanced scale." },
       { id: "Seperti Santa Claus, ia diberi banyak tahi lalat — karena Fujimoto merasa itu membuat karakter makin menarik.", en: "Like Santa Claus, she has lots of moles — because Fujimoto feels they make a character look better." },
-      { id: "Kekuatannya bersumber dari rasa takut manusia akan kelaparan.", en: "Her power comes from humanity's fear of starvation." },
+      { spoiler: true, id: "Twist besar Part 2: “Fami” sebenarnya adalah Iblis Kematian, yang meminjam nama adiknya, Iblis Kelaparan, untuk menyembunyikan identitasnya.", en: "Part 2's big twist: “Fami” is actually the Death Devil, borrowing the name of her sister, the Famine Devil, to hide her identity." },
     ],
   },
 

@@ -65,6 +65,22 @@ button, input, select { font: inherit; color: inherit; }
 .btn--outline { background: transparent; color: var(--ink); }
 .btn--outline:hover { background: var(--ink); color: var(--on-ink); }
 
+/* ── Network bar: link back to the Fujimoto Archive hub ── */
+.network {
+  display: flex; align-items: center; gap: var(--s-lg); flex-wrap: wrap;
+  padding: 6px max(var(--s-xl), calc((100% - var(--container)) / 2 + var(--s-xl)));
+  background: var(--ink); color: var(--on-ink-muted);
+  font: 500 12px/20px var(--f-sans); letter-spacing: .04em;
+}
+.network__link {
+  color: var(--on-ink); text-decoration: none; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .12em;
+}
+.network__link:hover { color: var(--accent); }
+.network__link span { display: inline-block; transition: transform .15s var(--ease); }
+.network__link:hover span { transform: translateX(-3px); }
+@media (max-width: 520px) { .network__sub { display: none; } }
+
 /* ── Masthead ─────────────────────────────────── */
 .masthead {
   position: sticky; top: 0; z-index: 20;

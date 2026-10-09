@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DEVIL HUNTER LOG — Fun Fact Chainsaw Man</title>
+  <meta name="description" content="Blog fan Chainsaw Man: fun fact, profil karakter, linimasa rilis, dan galeri.">
+  <meta name="theme-color" content="#0b0b0b">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DEVIL HUNTER LOG — Kenalan dengan Chainsaw Man">
+  <meta property="og:description" content="Apa itu Chainsaw Man, mulai nonton/baca dari mana, fun fact, dan profil karakter. Bebas spoiler!">
+  <meta property="og:image" content="assets/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="skip">Lewati ke konten</a>
+
+  <header class="masthead">
+    <div class="masthead__inner">
+      <a class="wordmark" href="#top" aria-label="Devil Hunter Log">
+        DEVIL<span class="wordmark__slash" aria-hidden="true">/</span>HUNTER<span class="wordmark__log">LOG</span>
+      </a>
+      <nav class="nav" aria-label="Utama">
+        <button class="nav__toggle" aria-expanded="false" aria-controls="nav-links">
+          <span class="sr" data-i18n="menu">Menu</span>
+          <span class="nav__burger" aria-hidden="true"></span>
+        </button>
+        <ul class="nav__links" id="nav-links">
+          <li><a href="#intro" data-i18n="nav.intro">Apa itu?</a></li>
+          <li><a href="#start" data-i18n="nav.start">Mulai</a></li>
+          <li><a href="#facts" data-i18n="nav.facts">Fun Fact</a></li>
+          <li><a href="#characters" data-i18n="nav.characters">Karakter</a></li>
+          <li><a href="#timeline" data-i18n="nav.timeline">Linimasa</a></li>
+          <li><a href="#gallery" data-i18n="nav.gallery">Galeri</a></li>
+        </ul>
+      </nav>
+      <div class="lang" role="group" aria-label="Bahasa / Language">
+        <button class="lang__btn" data-lang="id" aria-pressed="true">ID</button>
+        <button class="lang__btn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track" id="ticker"></div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div class="hero__art" aria-hidden="true">
+        <div class="media media--hero" data-ph="0">
+          <img src="assets/img/hero.webp" alt="">
+        </div>
+        <svg viewBox="0 0 400 400" class="saw">
+          <defs>
+            <pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse">
+              <circle cx="5" cy="5" r="2.2" fill="#0b0b0b"/>
+            </pattern>
+          </defs>
+          <circle cx="200" cy="200" r="190" fill="url(#dots)" opacity=".18"/>
+          <g class="saw__blade">
+            <rect x="60" y="170" width="300" height="60" fill="#0b0b0b"/>
+            <path d="M60 170 l15 -18 l15 18 l15 -18 l15 18 l15 -18 l15 18 l15 -18 l15 18 l15 -18 l15 18 l15 -18 l15 18 l15 -18 l15 18 l15 -18 l15 18 l15 -18 l15 18 l15 -18 l15 18Z" fill="#0b0b0b"/>
+            <path d="M60 230 l15 18 l15 -18 l15 18 l15 -18 l15 18 l15 -18 l15 18 l15 -18 l15 18 l15 -18 l15 18 l15 -18 l15 18 l15 -18 l15 18 l15 -18 l15 18 l15 -18 l15 18 l15 -18Z" fill="#0b0b0b"/>
+          </g>
+          <rect x="20" y="150" width="70" height="100" fill="#c8102e"/>
+          <rect x="34" y="186" width="42" height="8" fill="#f4f0e6"/>
+          <rect x="34" y="204" width="42" height="8" fill="#f4f0e6"/>
+          <path d="M0 330 L400 60" stroke="#c8102e" stroke-width="16"/>
+        </svg>
+      </div>
+      <div class="hero__copy">
+        <p class="eyebrow" data-i18n="hero.eyebrow">Blog Fan Chainsaw Man</p>
+        <h1 class="hero__title" data-i18n-html="hero.title">Rrrrrr—<br>fakta, <em>iblis</em>,<br>&amp; darah.</h1>
+        <p class="hero__lead" data-i18n="hero.lead">Fun fact, profil karakter, dan sejarah rilis karya Tatsuki Fujimoto — dikemas ala majalah.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#intro" data-i18n="hero.cta1">Kenalan dulu</a>
+          <a class="btn btn--outline" href="#start" data-i18n="hero.cta2">Mulai nonton / baca</a>
+        </div>
+        <dl class="stats">
+          <div><dt data-i18n="stats.facts">Fun fact</dt><dd id="stat-facts">—</dd></div>
+          <div><dt data-i18n="stats.chars">Karakter</dt><dd id="stat-chars">—</dd></div>
+          <div><dt data-i18n="stats.chapters">Chapter Part 1</dt><dd>97</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="teeth" aria-hidden="true"></div>
+
+    <!-- Intro: apa itu Chainsaw Man -->
+    <section class="section intro" id="intro" aria-labelledby="intro-title">
+      <div class="intro__grid">
+        <div>
+          <p class="eyebrow" data-i18n="intro.eyebrow">Untuk pendatang baru</p>
+          <h2 class="section__title" id="intro-title" data-i18n="intro.title">Apa itu Chainsaw Man?</h2>
+          <p class="intro__lead" data-i18n="intro.lead"></p>
+          <p class="intro__dream" data-i18n="intro.dream"></p>
+        </div>
+        <dl class="specs" id="intro-specs"></dl>
+      </div>
+
+      <h3 class="intro__why" data-i18n="intro.whyTitle">Kenapa harus coba?</h3>
+      <ol class="reasons" id="intro-reasons"></ol>
+
+      <p class="warning"><b data-i18n="intro.warnLabel">Peringatan konten</b> <span data-i18n="intro.warn"></span></p>
+    </section>
+
+    <!-- Start: urutan nonton/baca -->
+    <section class="section section--ink" id="start" aria-labelledby="start-title">
+      <div class="section__head">
+        <p class="eyebrow" data-i18n="start.eyebrow">Panduan pemula</p>
+        <h2 class="section__title" id="start-title" data-i18n="start.title">Mulai dari Mana?</h2>
+        <p class="section__sub" data-i18n="start.sub">Urutan yang disarankan — semuanya lewat layanan resmi, jadi kamu ikut mendukung kreatornya.</p>
+      </div>
+      <ol class="steps" id="start-steps"></ol>
+      <p class="steps__alt" data-i18n-html="start.alt"></p>
+    </section>
+
+    <!-- Fun facts -->
+    <section class="section" id="facts" aria-labelledby="facts-title">
+      <div class="section__head">
+        <p class="eyebrow" data-i18n="facts.eyebrow">Arsip</p>
+        <h2 class="section__title" id="facts-title" data-i18n="facts.title">Fun Fact</h2>
+        <p class="section__sub" data-i18n="facts.sub">Pilih kategori. Fakta yang mengandung spoiler disensor sampai kamu klik.</p>
+      </div>
+      <div class="toolbar">
+        <div class="chips" id="fact-filters" role="tablist" aria-label="Kategori"></div>
+        <label class="switch">
+          <input type="checkbox" class="spoiler-toggle">
+          <span class="switch__track" aria-hidden="true"></span>
+          <span data-i18n="facts.showSpoilers">Tampilkan spoiler</span>
+        </label>
+      </div>
+      <div class="facts" id="facts-grid"></div>
+    </section>
+
+    <!-- Characters -->
+    <section class="section section--ink" id="characters" aria-labelledby="chars-title">
+      <div class="section__head">
+        <p class="eyebrow" data-i18n="chars.eyebrow">Daftar Pemeran</p>
+        <h2 class="section__title" id="chars-title" data-i18n="chars.title">Karakter</h2>
+        <p class="section__sub" data-i18n="chars.sub">Para Devil Hunter, iblis, dan fiend yang menghidupkan ceritanya.</p>
+      </div>
+      <div class="toolbar toolbar--ink">
+        <div class="chips chips--ink" id="char-filters" aria-label="Part"></div>
+        <label class="switch switch--ink">
+          <input type="checkbox" class="spoiler-toggle">
+          <span class="switch__track" aria-hidden="true"></span>
+          <span data-i18n="facts.showSpoilers">Tampilkan spoiler</span>
+        </label>
+      </div>
+      <div class="chars" id="chars-grid"></div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="section" id="timeline" aria-labelledby="timeline-title">
+      <div class="section__head">
+        <p class="eyebrow" data-i18n="timeline.eyebrow">Sejarah Rilis</p>
+        <h2 class="section__title" id="timeline-title" data-i18n="timeline.title">Linimasa</h2>
+      </div>
+      <ol class="timeline" id="timeline-list"></ol>
+    </section>
+
+    <div class="teeth" aria-hidden="true"></div>
+
+    <!-- Gallery -->
+    <section class="section section--ink" id="gallery" aria-labelledby="gallery-title">
+      <div class="section__head">
+        <p class="eyebrow" data-i18n="gallery.eyebrow">Panel & Poster</p>
+        <h2 class="section__title" id="gallery-title" data-i18n="gallery.title">Galeri</h2>
+        <p class="section__sub" data-i18n="gallery.sub">Klik gambar untuk memperbesar.</p>
+      </div>
+      <div class="gallery" id="gallery-grid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <p class="footer__mark">DEVIL<span>/</span>HUNTER LOG</p>
+      <p class="footer__note" data-i18n="footer.note">Situs fan tidak resmi. Chainsaw Man © Tatsuki Fujimoto / Shueisha. Anime © MAPPA. Semua gambar milik pemegang hak ciptanya masing-masing.</p>
+      <p class="footer__note"><span data-i18n="footer.credit">Gambar via</span> <a class="inline-link" href="https://chainsaw-man.fandom.com/" target="_blank" rel="noopener">Chainsaw Man Fandom Wiki</a> · <span data-i18n="footer.official">Situs resmi anime:</span> <a class="inline-link" href="https://chainsawman.dog/" target="_blank" rel="noopener">chainsawman.dog</a></p>
+    </div>
+  </footer>
+
+  <!-- Article dialog -->
+  <dialog class="article" id="article" aria-labelledby="article-title">
+    <div class="article__inner">
+      <button class="article__close" data-close data-i18n-aria="close" aria-label="Tutup">×</button>
+      <div id="article-cover"></div>
+      <p class="eyebrow" id="article-cat"></p>
+      <h2 class="article__title" id="article-title"></h2>
+      <p class="byline" id="article-meta"></p>
+      <div class="article__body" id="article-body"></div>
+      <div class="article__share">
+        <button class="btn btn--primary" id="share-btn" data-i18n="share.btn">Bagikan fakta ini</button>
+        <span class="toast" id="share-toast" role="status" aria-live="polite"></span>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Lightbox -->
+  <dialog class="lightbox" id="lightbox" aria-label="Gambar">
+    <button class="article__close lightbox__close" data-close data-i18n-aria="close" aria-label="Tutup">×</button>
+    <figure>
+      <img id="lightbox-img" alt="">
+      <figcaption id="lightbox-cap"></figcaption>
+    </figure>
+  </dialog>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/posts.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

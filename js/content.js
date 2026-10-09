@@ -112,6 +112,8 @@ const TIMELINE = [
   { date: "2022-07", title: { id: "Part 2 dimulai", en: "Part 2 begins" }, text: { id: "Cerita berlanjut di Shōnen Jump+ dengan protagonis baru, Asa Mitaka.", en: "The story continues on Shōnen Jump+ with a new lead, Asa Mitaka." } },
   { date: "2022-10", title: { id: "Anime tayang", en: "Anime premieres" }, text: { id: "Adaptasi MAPPA tayang, 12 episode dengan 12 lagu penutup.", en: "MAPPA's adaptation airs — 12 episodes with 12 ending songs." } },
   { date: "2025-09", title: { id: "Film Reze Arc", en: "Reze Arc movie" }, text: { id: "Chainsaw Man – The Movie: Reze Arc tayang di bioskop Jepang.", en: "Chainsaw Man – The Movie: Reze Arc hits Japanese theaters." } },
+  { date: "2025-12", title: { id: "Season 2 diumumkan", en: "Season 2 announced" }, text: { id: "Anime kembali dengan “Assassins Arc”, mengadaptasi arc International Assassins.", en: "The anime returns with the “Assassins Arc”, adapting the International Assassins arc." } },
+  { date: "2026-03", title: { id: "Manga tamat", en: "The manga ends" }, text: { id: "Chapter 232 “Thank You, Chainsaw Man” menutup seri. Volume 24 terbit Juni 2026.", en: "Chapter 232, “Thank You, Chainsaw Man”, closes the series. Volume 24 follows in June 2026." } },
 ];
 
 // Galeri: tambah/ubah entri lalu taruh file gambarnya di assets/img/gallery/.

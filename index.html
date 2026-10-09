@@ -38,7 +38,8 @@
           <li><a href="#start" data-i18n="nav.start">Mulai</a></li>
           <li><a href="#facts" data-i18n="nav.facts">Fun Fact</a></li>
           <li><a href="#characters" data-i18n="nav.characters">Karakter</a></li>
-          <li><a href="#timeline" data-i18n="nav.timeline">Linimasa</a></li>
+          <li><a href="#arcs" data-i18n="nav.arcs">Arc</a></li>
+          <li><a href="#philosophy" data-i18n="nav.philosophy">Filosofi</a></li>
           <li><a href="#gallery" data-i18n="nav.gallery">Galeri</a></li>
         </ul>
       </nav>
@@ -160,6 +161,31 @@
       <div class="chars" id="chars-grid"></div>
     </section>
 
+    <!-- Bedah arc -->
+    <section class="section" id="arcs" aria-labelledby="arcs-title">
+      <div class="section__head">
+        <p class="eyebrow" data-i18n="arcs.eyebrow">Bedah Cerita</p>
+        <h2 class="section__title" id="arcs-title" data-i18n="arcs.title">Bedah Tiap Arc</h2>
+        <p class="section__sub" data-i18n="arcs.sub"></p>
+      </div>
+      <div class="arcs" id="arcs-list"></div>
+      <p class="arcs__note" data-i18n="arcs.note"></p>
+    </section>
+
+    <!-- Filosofi -->
+    <section class="section section--ink" id="philosophy" aria-labelledby="phil-title">
+      <div class="section__head">
+        <p class="eyebrow" data-i18n="phil.eyebrow">Pesan & Filosofi</p>
+        <h2 class="section__title" id="phil-title" data-i18n="phil.title"></h2>
+        <p class="phil__lead" data-i18n="phil.lead"></p>
+      </div>
+      <h3 class="phil__h" data-i18n="phil.said">Kata Fujimoto</h3>
+      <ul class="quotes" id="phil-said"></ul>
+      <h3 class="phil__h" data-i18n="phil.themes">Tafsiran</h3>
+      <p class="phil__note" data-i18n="phil.themesNote"></p>
+      <ol class="themes" id="phil-themes"></ol>
+    </section>
+
     <!-- Timeline -->
     <section class="section" id="timeline" aria-labelledby="timeline-title">
       <div class="section__head">
@@ -242,6 +268,7 @@
   <script src="js/posts.js"></script>
   <script src="js/content.js"></script>
   <script src="js/characters-detail.js"></script>
+  <script src="js/arcs.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

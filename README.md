@@ -5,7 +5,7 @@ HTML, CSS, dan JS murni — tanpa build, langsung jalan di GitHub Pages.
 
 ## Fitur
 - **Fun fact** bergaya majalah, filter per kategori, sensor spoiler (klik untuk buka), artikel di dialog dengan gambar sampul.
-- **Karakter** dengan foto potret, filter Part 1 / Part 2. Klik kartu untuk membuka **profil lengkap** (umur, lahir, tinggi, asal, debut, pengisi suara, kontrak, status) dan fun fact per karakter. Info spoiler tampil sebagai blok hitam yang bisa diklik.
+- **28 karakter** dengan foto potret, filter Part 1 / Part 2, dan pencarian. Klik kartu untuk membuka **profil lengkap** (umur, lahir, tinggi, asal, debut, pengisi suara, kontrak, saudara, status) dan fun fact per karakter. Info spoiler tampil sebagai blok hitam yang bisa diklik.
 - **Bedah 14 arc** (Part 1 & 2): kejadian dan makna tiap arc, tertutup sampai dibuka (spoiler).
 - **Pesan & filosofi**: pernyataan Fujimoto (bersumber) dipisah dari tafsiran tema.
 - **Linimasa** rilis manga, anime, dan film — sampai tamatnya manga (2026).
